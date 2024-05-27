@@ -1,0 +1,12 @@
+
+Okay, let's start with Nmap. I guess you guys already know about Nmap, right? Yeah, Nmap is a very powerful scanner to discover attack surfaces of a system. Normally, we use Nmap to find out what ports on the server are open and what services are running on those ports. Not only that, we can also use Nmap for OS detection, version detection, and even running testing scripts against the services to see if they are vulnerable to some exploits.
+
+Yeah last week I carried out a network scan with Nmap. Well actually, Admir did that for me because for some reason I couldn't run Nmap with sudo privilege on my Laptop. Well, I considered running Nmap on the server itself. But that didn't make any sense to me because I wanted to carry out a scan from outside, not from inside the server. So I asked Admir for a favour and had him do that for me. The scan took like 4 or 5 days, right? And Admir had to let his laptop running all the time. Thank you again for that Admir.
+
+In the end, we got a long report. From my point of view, the report doesn't look interesting at all, because it contains no vulnerability. But that also means that the system is in good shape. I scanned all the possible ports but couldn't find any additional attack surface, except for the following ports that we already know. Well, port 22 for Secure Shell connections to the server. Port 80 and 433 are for the Nginx server of the FastAPI. And port 8086 is for the InfluxDB. So there was no additional attack surface. I had no choice but trying to find ways to exploit the Nginx server and the InfluxDB.
+
+I searched the Internet to see if there's anything I can do to exploit the InfluxDB and the Nginx server. But there wasn't much. Their software versions are quite up-to-date. So there exists no exploit for their software versions.
+
+Then I used Metasploit to try out some related exploits for InfluxDB and Nginx. Well, Metasploit is a very powerful framework for penetration testing and security auditing. It contains a lot of modules and exploits that I can simply try out. So I used it to test the InfluxDB and the Nginx server. I listed all the exploits I used in the report, together with the output. Well overall, I couldn't find any vulnerability in the end.
+
+Okay, to conclude my part. From the network layer's point of view, the system is in very good shape. Only the necessary ports and services are exposed to the outside, no additional attack surface. And I didn't find any new vulnerability on the exposed services. 

@@ -1,0 +1,35 @@
+Am bestens sollte man den integierten Browser von Burp benutzen. Bei der Nutzung von externen Browsern gibt es einige Probleme: 
+1) Man muss Burp als Proxy (127.0.0.1:8080) in System-Settings konfigurieren. Dazu braucht man Admin-Berechtigung, die man normalerweise nicht hat
+2) Der externe Broswer sendet Request irgendwann nicht mehr über Burp-Proxy. Das heißt, die Proxy-System-Setting hat nach einer Zeit keinen Effekt mehr, obwohl es schon korrekt konfiguriert ist. 
+
+-------------------------------------------------------------------------------------------------------
+
+Konfiguration in Burp -> User options -> Upstream Proxy Servers -> Add
+Da muss man 2 Regeln festlegen:
+
+1. Regel: Intranet-Seiten-Requests sollten direkt gesendet werden 
+  Destination host: *.intra.swm.de
+
+2. Regel: Alle anderen Internet-Seite-Requests sollten über SWM-Proxy gesendet werden
+  Destination host: *
+  Proxy host: proxy.swm.de
+  Proxy port: 8080
+  Authentication type: Basic
+  Username: to.nguyentruongan
+  Password: *****************
+
+-------------------------------------------------------------------------------------------------------
+
+Bemerkung: 
+
+Beim Aufruf fast aller Intranet-Seiten muss man sich noch authentisieren. Das kann man machen, indem man in 'User options' -> 'Platform Authentication' Regeln erzeugen. Bei jeder Regel legt man fest: den Destionation Host, die Authentication Type, den Username, und das Password.
+
+Dabei sollte man nicht vergessen, den Checkbox 'Do platform authentication' zu wählen
+Der Checkbox 'Prompt for credentials on platform authentication failure' kann auch hilfreich sein, falls es Authentikationsfehler gibt.
+
+---------------------------------------------------------------------------------------------------------
+
+Falls Burp Collaborator nicht funktioniert, probiere: Project options -> Misc -> Poll over unencrypted HTTP
+
+Verbliebene Probleme:
+- Burp Collaborator Client kann nicht genutzt werden

